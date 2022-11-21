@@ -1,0 +1,70 @@
+server:
+  port: ${RANDOM_PORT:8123}  # 获取系统的环境变量
+  use-forward-headers: true
+  tomcat:
+    remote-ip-header: X-Real-IP
+    protocol-header: X-Forwarded-Proto
+  servlet:
+    context-path: /clocking
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  quartz:
+    jdbc:
+      initialize-schema: EMBEDDED
+    job-store-type: jdbc # 持久化储存定时任务
+    overwrite-existing-jobs: true #配置创建的作业覆盖已从数据库读取的已注册作业，默认false
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceId: AUTO
+            classLoadHelper:
+              class: org.quartz.simpl.ThreadContextClassLoadHelper
+            jobFactory:
+          threadPool:
+            threadCount: 50 # 线程池大小
+          jobStore:
+            #dataSource: ppp_horae
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            misfireThreshold: 60000 #毫秒
+            tablePrefix: QRTZ_
+            isClustered: true #启用集群
+            clusterCheckinInterval: 20000
+            acquireTriggersWithinLock: true # 获取触发器时使用锁，防止集群时偶尔重复调度问题
+  datasource:
+    # primary:
+    name: clocking
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/digital?autoReconnect=true&connectTimeout=10000&socketTimeout=30000&useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    #type: org.apache.commons.dbcp2.BasicDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    maxActive: 500
+
+  cloud:
+    client:
+      hostname: ${DEV_HOST}
+  aop:
+    auto: true
+    proxy-target-class: false
+  jpa:
+    hibernate:
+      ddl-auto: update  # 第一次建表create  后面用update,要不然每次重启都会新建表
+    show-sql: true #打印执行的sql语句
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect #设置数据库方言  记住必须要使用 MySQL5InnoDBDialect 指定数据库类型对应InnoDB  ;如果使用MySQLDialect 则对应的是MyISAM
+zh:
+  startTime: 2019-01-01
+  httpGetList: http://newings.tech:8099/dataStatistics/getList
+  httpGetCount: http://newings.tech:8099/dataStatistics/getCount
+  httpGetChart: http://newings.tech:8099/dataStatistics/getChart
+  httpGetChartOrecle: http://newings.tech:8001/dataStatistics/getChart
+  electronicCall: http://newings.tech:8888/jc/rollcall/findByPrisonIdAndType
+  alarmOrder: http://newings.tech:8090/ephod-server-20221028v1/alarmOrder/alarmQuantityAnalysis
+icc:
+  host: 115.236.17.59:9021
+  username: TEST
+  password: Admin123
+  clientId: CompanyName
+  clientSecret: 42bec152-8f04-476a-9aec-e7d616ff3cb3
