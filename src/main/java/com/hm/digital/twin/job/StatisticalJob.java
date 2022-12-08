@@ -10,9 +10,11 @@ import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hm.digital.twin.biz.StatisticalService;
+import com.hm.digital.twin.dto.StatisticalDto;
 import com.hm.digital.twin.entity.Statistical;
 import com.hm.digital.twin.enums.InputParameterEnum;
 import com.hm.digital.twin.utils.DateUtils;
@@ -129,6 +131,9 @@ public class StatisticalJob extends BaseJob{
     getStatisticalJob(httpGetChartOrecle,list,prisonId,InputParameterEnum.DORMAREA_MONTH_DORM_CODE_IN_PRISON.getKey(),time);
     //每季度押量
     getStatisticalJob(httpGetChartOrecle,list,prisonId,InputParameterEnum.DORMAREA_QUARTER_DORM_CODE_IN_PRISON.getKey(),time);
+
+    //重点人员- 风险人员
+    getStatisticalJob(httpGetChart,list,prisonId,InputParameterEnum.RISKLEVEL_PRISONER_CHART.getKey(),time);
   }
   /**
    * 获取综合数据
@@ -150,8 +155,11 @@ public class StatisticalJob extends BaseJob{
       parametersRed.put("startTime", schema[1]);
     }
     String responseRed = HttpClientUtil.sendGet(httpGetCharts, parametersRed);
-    List<Statistical> lists = JSONObject.parseArray(responseRed,Statistical.class);
+    List<StatisticalDto> lists = JSONObject.parseArray(responseRed,StatisticalDto.class);
     lists.forEach(statistical->{
+      if (!StringUtils.isEmpty(statistical.getPgzb())){
+        statistical.setNAME(statistical.getPgzb());
+      }
       statistical.setPrisonId(prisonId);
       statistical.setRequiredParameter(schema[0]);
     });
