@@ -1,4 +1,4 @@
-package com.hm.digital.twin.manager;
+package com.hm.digital.clocking.manager;
 
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import org.springframework.stereotype.Component;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.hm.digital.twin.jobdata.JobDetails;
+import com.hm.digital.clocking.jobdata.JobDetails;
 
 /**
  * @author pdai

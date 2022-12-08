@@ -1,4 +1,4 @@
-package com.hm.digital.twin.biz.impl;
+package com.hm.digital.clocking.biz.impl;
 
 import java.util.Date;
 import java.util.List;
@@ -8,12 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.hm.digital.twin.biz.StatisticalService;
-import com.hm.digital.twin.entity.Statistical;
-import com.hm.digital.twin.mapper.StatisticalMapper;
-import com.hm.digital.twin.vo.StatisticalVO;
+import com.hm.digital.clocking.biz.StatisticalService;
+import com.hm.digital.clocking.entity.Statistical;
+import com.hm.digital.clocking.mapper.StatisticalMapper;
+import com.hm.digital.clocking.vo.StatisticalVO;
 
-import static com.hm.digital.twin.utils.DateUtils.getEndOfYesterday;
+import static com.hm.digital.common.utils.DateUtils.getEndOfYesterday;
 
 @Service
 public class StatisticalServiceimpl implements StatisticalService {

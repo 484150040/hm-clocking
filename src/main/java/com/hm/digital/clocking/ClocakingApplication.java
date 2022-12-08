@@ -1,4 +1,4 @@
-package com.hm.digital.twin;
+package com.hm.digital.clocking;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.hm.digital.twin.job;
+package com.hm.digital.clocking.job;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

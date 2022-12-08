@@ -1,4 +1,4 @@
-package com.hm.digital.twin.job;
+package com.hm.digital.clocking.job;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Value;
 import com.alibaba.fastjson.JSONObject;
 import com.dahuatech.hutool.json.JSONArray;
 import com.dahuatech.hutool.json.JSONUtil;
-import com.hm.digital.twin.biz.PrisonerRecordService;
-import com.hm.digital.twin.entity.PrisonerRecord;
-import com.hm.digital.twin.enums.InputParameterEnum;
-import com.hm.digital.twin.utils.ChineseCharacterUtil;
-import com.hm.digital.twin.utils.HttpClientUtil;
+import com.hm.digital.clocking.biz.PrisonerRecordService;
+import com.hm.digital.clocking.entity.PrisonerRecord;
+import com.hm.digital.common.enums.InputParameterEnum;
+import com.hm.digital.common.utils.ChineseCharacterUtil;
+import com.hm.digital.common.utils.HttpClientUtil;
 
 
 public class PrisonerRecordJob extends BaseJob {

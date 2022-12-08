@@ -1,12 +1,12 @@
-package com.hm.digital.twin.controller;
+package com.hm.digital.clocking.controller;
 
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.github.pagehelper.PageInfo;
-import com.hm.digital.twin.jobdata.JobDetails;
-import com.hm.digital.twin.manager.QuartzManager;
+import com.hm.digital.clocking.jobdata.JobDetails;
+import com.hm.digital.clocking.manager.QuartzManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;

@@ -1,4 +1,4 @@
-package com.hm.digital.twin.vo;
+package com.hm.digital.clocking.vo;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,13 +8,13 @@ import javax.persistence.criteria.Predicate;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.hm.digital.twin.entity.PrisonerRecord;
-import com.hm.digital.twin.query.BaseQuery;
+import com.hm.digital.clocking.entity.Statistical;
+import com.hm.digital.common.query.BaseQuery;
 
 import lombok.Data;
 
 @Data
-public class PrisonerRecordVO extends BaseQuery<PrisonerRecord> {
+public class StatisticalVO extends BaseQuery<Statistical> {
 
   /**
    * 开始时间
@@ -27,9 +27,9 @@ public class PrisonerRecordVO extends BaseQuery<PrisonerRecord> {
   private Date endrTime;
 
   @Override
-  public Specification<PrisonerRecord> toSpec() {
+  public Specification<Statistical> toSpec() {
 
-    Specification<PrisonerRecord> spec = super.toSpecWithAnd();
+    Specification<Statistical> spec = super.toSpecWithAnd();
     return ((root, criteriaQuery, criteriaBuilder) -> {
       List<Predicate> predicatesList = new ArrayList<>();
       predicatesList.add(spec.toPredicate(root, criteriaQuery, criteriaBuilder));

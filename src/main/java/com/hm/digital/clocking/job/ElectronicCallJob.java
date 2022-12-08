@@ -1,4 +1,4 @@
-package com.hm.digital.twin.job;
+package com.hm.digital.clocking.job;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hm.digital.twin.biz.ElectronicCallService;
-import com.hm.digital.twin.entity.ElectronicCall;
-import com.hm.digital.twin.utils.HttpClientUtil;
+import com.hm.digital.clocking.biz.ElectronicCallService;
+import com.hm.digital.clocking.entity.ElectronicCall;
+import com.hm.digital.common.utils.HttpClientUtil;
 
 public class ElectronicCallJob extends BaseJob {
 

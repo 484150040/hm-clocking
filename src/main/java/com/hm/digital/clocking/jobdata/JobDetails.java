@@ -1,4 +1,4 @@
-package com.hm.digital.twin.jobdata;
+package com.hm.digital.clocking.jobdata;
 
 import java.util.Date;
 

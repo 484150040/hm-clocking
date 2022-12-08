@@ -1,4 +1,4 @@
-package com.hm.digital.twin.job;
+package com.hm.digital.clocking.job;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,14 +13,14 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hm.digital.twin.biz.StatisticalService;
-import com.hm.digital.twin.dto.StatisticalDto;
-import com.hm.digital.twin.entity.Statistical;
-import com.hm.digital.twin.enums.InputParameterEnum;
-import com.hm.digital.twin.utils.DateUtils;
-import com.hm.digital.twin.utils.HttpClientUtil;
+import com.hm.digital.clocking.biz.StatisticalService;
+import com.hm.digital.clocking.dto.StatisticalDto;
+import com.hm.digital.clocking.entity.Statistical;
+import com.hm.digital.common.enums.InputParameterEnum;
+import com.hm.digital.common.utils.DateUtils;
+import com.hm.digital.common.utils.HttpClientUtil;
 
-import static com.hm.digital.twin.utils.DateUtils.getEndOfYesterday;
+import static com.hm.digital.common.utils.DateUtils.getEndOfYesterday;
 
 public class StatisticalJob extends BaseJob{
 
