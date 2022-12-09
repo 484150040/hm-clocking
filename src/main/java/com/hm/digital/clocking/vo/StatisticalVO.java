@@ -8,7 +8,7 @@ import javax.persistence.criteria.Predicate;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.hm.digital.clocking.entity.Statistical;
+import com.hm.digital.inface.entity.Statistical;
 import com.hm.digital.common.query.BaseQuery;
 
 import lombok.Data;

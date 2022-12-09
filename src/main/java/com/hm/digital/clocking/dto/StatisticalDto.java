@@ -1,6 +1,6 @@
 package com.hm.digital.clocking.dto;
 
-import com.hm.digital.clocking.entity.Statistical;
+import com.hm.digital.inface.entity.Statistical;
 
 import lombok.Data;
 

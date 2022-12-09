@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hm.digital.clocking.biz.ElectronicCallService;
-import com.hm.digital.clocking.entity.ElectronicCall;
+import com.hm.digital.inface.biz.ElectronicCallService;
+import com.hm.digital.inface.entity.ElectronicCall;
 import com.hm.digital.common.utils.HttpClientUtil;
 
 public class ElectronicCallJob extends BaseJob {

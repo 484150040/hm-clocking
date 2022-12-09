@@ -9,9 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.hm.digital.clocking.biz.PrisonerRecordService;
-import com.hm.digital.clocking.entity.PrisonerRecord;
-import com.hm.digital.clocking.mapper.PrisonerRecordMapper;
+import com.hm.digital.inface.biz.PrisonerRecordService;
+import com.hm.digital.inface.entity.PrisonerRecord;
+import com.hm.digital.inface.mapper.PrisonerRecordMapper;
 
 @Service
 public class PrisonerRecordServiceimpl implements PrisonerRecordService {
