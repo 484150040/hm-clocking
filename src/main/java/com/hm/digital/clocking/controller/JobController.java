@@ -43,7 +43,7 @@ public class JobController {
    * @param cronExpression
    * @throws Exception
    */
-  @PostMapping(value = "/addjob")
+  @RequestMapping(value = "/addjob")
   public void addjob(@RequestParam(value = "jobClassName") String jobClassName,
       @RequestParam(value = "jobGroupName") String jobGroupName,
       @RequestParam(value = "cronExpression") String cronExpression) throws Exception {
@@ -98,7 +98,7 @@ public class JobController {
    * @param jobGroupName
    * @throws Exception
    */
-  @PostMapping(value = "/deletejob")
+  @RequestMapping(value = "/deletejob")
   public void deletejob(@RequestParam(value = "jobClassName") String jobClassName,
       @RequestParam(value = "jobGroupName") String jobGroupName) throws Exception {
     qtzManager.deleteJob(jobClassName, jobGroupName);
