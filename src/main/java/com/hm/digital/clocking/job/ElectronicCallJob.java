@@ -5,19 +5,39 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hm.digital.common.enums.ConfigEnum;
+import com.hm.digital.inface.biz.ConfigsService;
 import com.hm.digital.inface.biz.ElectronicCallService;
+import com.hm.digital.inface.entity.Config;
 import com.hm.digital.inface.entity.ElectronicCall;
 import com.hm.digital.common.utils.HttpClientUtil;
 
 public class ElectronicCallJob extends BaseJob {
 
-  @Value("${zh.electronicCall}")
-  private String electronicCall;
+//  @Value("${zh.electronicCall}")
+  private static String electronicCall;
+
+  @Autowired
+  public ConfigsService configsServices;
+  @PostConstruct
+  public void init() {
+    electronicCall =  configsServices.getValue(getCofig(ConfigEnum.ZH_ELECTRONICCALL.getKey())).get(0).getValue();
+  }
+
+  private Config getCofig(String config) {
+    Config configVO = new Config();
+    configVO.setType(config);
+    configVO.setUniverse("1");
+    return configVO;
+  }
+
 
   @Autowired
   private ElectronicCallService electronicCallService;

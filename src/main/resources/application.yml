@@ -54,17 +54,17 @@ spring:
       ddl-auto: update  # 第一次建表create  后面用update,要不然每次重启都会新建表
     show-sql: true #打印执行的sql语句
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect #设置数据库方言  记住必须要使用 MySQL5InnoDBDialect 指定数据库类型对应InnoDB  ;如果使用MySQLDialect 则对应的是MyISAM
-zh:
-  startTime: 2019-01-01
-  httpGetList: http://newings.tech:8099/dataStatistics/getList
-  httpGetCount: http://newings.tech:8099/dataStatistics/getCount
-  httpGetChart: http://newings.tech:8099/dataStatistics/getChart
-  httpGetChartOrecle: http://newings.tech:8001/dataStatistics/getChart
-  electronicCall: http://newings.tech:8888/jc/rollcall/findByPrisonIdAndType
-  alarmOrder: http://newings.tech:8090/ephod-server-20221028v1/alarmOrder/alarmQuantityAnalysis
-icc:
-  host: 115.236.17.59:9021
-  username: TEST
-  password: Admin123
-  clientId: CompanyName
-  clientSecret: 42bec152-8f04-476a-9aec-e7d616ff3cb3
+#zh:
+#  startTime: 2019-01-01
+#  httpGetList: http://newings.tech:8099/dataStatistics/getList
+#  httpGetCount: http://newings.tech:8099/dataStatistics/getCount
+#  httpGetChart: http://newings.tech:8099/dataStatistics/getChart
+#  httpGetChartOrecle: http://newings.tech:8001/dataStatistics/getChart
+#  electronicCall: http://newings.tech:8888/jc/rollcall/findByPrisonIdAndType
+#  alarmOrder: http://newings.tech:8090/ephod-server-20221028v1/alarmOrder/alarmQuantityAnalysis
+#icc:
+#  host: 115.236.17.59:9021
+#  username: TEST
+#  password: Admin123
+#  clientId: CompanyName
+#  clientSecret: 42bec152-8f04-476a-9aec-e7d616ff3cb3

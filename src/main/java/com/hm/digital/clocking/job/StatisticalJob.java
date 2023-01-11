@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,8 +15,11 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hm.digital.common.enums.ConfigEnum;
+import com.hm.digital.inface.biz.ConfigsService;
 import com.hm.digital.inface.biz.StatisticalService;
 import com.hm.digital.clocking.dto.StatisticalDto;
+import com.hm.digital.inface.entity.Config;
 import com.hm.digital.inface.entity.Statistical;
 import com.hm.digital.common.enums.InputParameterEnum;
 import com.hm.digital.common.utils.DateUtils;
@@ -27,17 +32,35 @@ public class StatisticalJob extends BaseJob{
   @Autowired
   private StatisticalService statisticalService;
 
-  @Value("${zh.httpGetChart}")
-  private String httpGetChart;
+//  @Value("${zh.httpGetChart}")
+  private static String httpGetChart;
 
-  @Value("${zh.alarmOrder}")
-  private String alarmOrder;
+//  @Value("${zh.alarmOrder}")
+  private static String alarmOrder;
   
-  @Value("${zh.startTime}")
-  private String startTime;
+//  @Value("${zh.startTime}")
+  private static String startTime;
 
-  @Value("${zh.httpGetChartOrecle}")
-  private String httpGetChartOrecle;
+//  @Value("${zh.httpGetChartOrecle}")
+  private static String httpGetChartOrecle;
+
+
+  @Autowired
+  public ConfigsService configsServices;
+  @PostConstruct
+  public void init() {
+    httpGetChart =  configsServices.getValue(getCofig(ConfigEnum.ZH_HTTPGETCHART.getKey())).get(0).getValue();
+    alarmOrder =  configsServices.getValue(getCofig(ConfigEnum.ZH_ALARMORDER.getKey())).get(0).getValue();
+    startTime =  configsServices.getValue(getCofig(ConfigEnum.ZH_STARTTIME.getKey())).get(0).getValue();
+    httpGetChartOrecle =  configsServices.getValue(getCofig(ConfigEnum.ZH_HTTPGETCHARTORECLE.getKey())).get(0).getValue();
+  }
+
+  private Config getCofig(String config) {
+    Config configVO = new Config();
+    configVO.setType(config);
+    configVO.setUniverse("1");
+    return configVO;
+  }
 
 
   @Override

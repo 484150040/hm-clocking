@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +14,10 @@ import org.springframework.beans.factory.annotation.Value;
 import com.alibaba.fastjson.JSONObject;
 import com.dahuatech.hutool.json.JSONArray;
 import com.dahuatech.hutool.json.JSONUtil;
+import com.hm.digital.common.enums.ConfigEnum;
+import com.hm.digital.inface.biz.ConfigsService;
 import com.hm.digital.inface.biz.PrisonerRecordService;
+import com.hm.digital.inface.entity.Config;
 import com.hm.digital.inface.entity.PrisonerRecord;
 import com.hm.digital.common.enums.InputParameterEnum;
 import com.hm.digital.common.utils.ChineseCharacterUtil;
@@ -24,9 +29,22 @@ public class PrisonerRecordJob extends BaseJob {
   @Autowired
   private PrisonerRecordService prisonerRecordService;
 
-  @Value("${zh.httpGetList}")
-  private String httpGetList;
+//  @Value("${zh.httpGetList}")
+  private static String httpGetList;
 
+  @Autowired
+  public ConfigsService configsServices;
+  @PostConstruct
+  public void init() {
+    httpGetList =  configsServices.getValue(getCofig(ConfigEnum.ZH_HTTPGETLIST.getKey())).get(0).getValue();
+  }
+
+  private Config getCofig(String config) {
+    Config configVO = new Config();
+    configVO.setType(config);
+    configVO.setUniverse("1");
+    return configVO;
+  }
 
   @Override
   protected void toTiming(JobExecutionContext context) {
