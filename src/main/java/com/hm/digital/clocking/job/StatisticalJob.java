@@ -49,10 +49,15 @@ public class StatisticalJob extends BaseJob{
   public ConfigsService configsServices;
   @PostConstruct
   public void init() {
-    httpGetChart =  configsServices.getValue(getCofig(ConfigEnum.ZH_HTTPGETCHART.getKey())).get(0).getValue();
-    alarmOrder =  configsServices.getValue(getCofig(ConfigEnum.ZH_ALARMORDER.getKey())).get(0).getValue();
-    startTime =  configsServices.getValue(getCofig(ConfigEnum.ZH_STARTTIME.getKey())).get(0).getValue();
-    httpGetChartOrecle =  configsServices.getValue(getCofig(ConfigEnum.ZH_HTTPGETCHARTORECLE.getKey())).get(0).getValue();
+    try {
+      httpGetChart =  configsServices.getValue(getCofig(ConfigEnum.ZH_HTTPGETCHART.getKey())).get(0).getValue();
+      alarmOrder =  configsServices.getValue(getCofig(ConfigEnum.ZH_ALARMORDER.getKey())).get(0).getValue();
+      startTime =  configsServices.getValue(getCofig(ConfigEnum.ZH_STARTTIME.getKey())).get(0).getValue();
+      httpGetChartOrecle =  configsServices.getValue(getCofig(ConfigEnum.ZH_HTTPGETCHARTORECLE.getKey())).get(0).getValue();
+    } catch (Exception e) {
+      e.printStackTrace();
+      return;
+    }
   }
 
   private Config getCofig(String config) {

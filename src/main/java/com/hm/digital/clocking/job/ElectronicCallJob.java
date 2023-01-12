@@ -21,14 +21,19 @@ import com.hm.digital.common.utils.HttpClientUtil;
 
 public class ElectronicCallJob extends BaseJob {
 
-//  @Value("${zh.electronicCall}")
+  //  @Value("${zh.electronicCall}")
   private static String electronicCall;
 
   @Autowired
   public ConfigsService configsServices;
   @PostConstruct
   public void init() {
-    electronicCall =  configsServices.getValue(getCofig(ConfigEnum.ZH_ELECTRONICCALL.getKey())).get(0).getValue();
+    try {
+      electronicCall = configsServices.getValue(getCofig(ConfigEnum.ZH_ELECTRONICCALL.getKey())).get(0).getValue();
+    } catch (Exception e) {
+      e.printStackTrace();
+      return;
+    }
   }
 
   private Config getCofig(String config) {

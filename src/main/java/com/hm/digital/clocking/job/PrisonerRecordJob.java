@@ -36,7 +36,12 @@ public class PrisonerRecordJob extends BaseJob {
   public ConfigsService configsServices;
   @PostConstruct
   public void init() {
-    httpGetList =  configsServices.getValue(getCofig(ConfigEnum.ZH_HTTPGETLIST.getKey())).get(0).getValue();
+    try {
+      httpGetList =  configsServices.getValue(getCofig(ConfigEnum.ZH_HTTPGETLIST.getKey())).get(0).getValue();
+    } catch (Exception e) {
+      e.printStackTrace();
+      return;
+    }
   }
 
   private Config getCofig(String config) {
