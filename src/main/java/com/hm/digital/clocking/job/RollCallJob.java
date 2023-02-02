@@ -6,6 +6,7 @@ import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import com.hm.digital.clocking.feign.ConfigsFeignBiz;
 import com.hm.digital.clocking.feign.MassageFeignBiz;
 import com.hm.digital.common.enums.ConfigEnum;
 import com.hm.digital.inface.biz.ConfigsService;
@@ -20,12 +21,17 @@ public class RollCallJob extends BaseJob {
   private MassageFeignBiz massageFeignBiz;
 
   @Autowired
-  public ConfigsService configsServices;
+  public ConfigsFeignBiz configsFeignBiz;
 
   @PostConstruct
   public void init() {
     try {
-      electronicCall =  configsServices.getValue(getCofig(ConfigEnum.ZH_ELECTRONICCALL.getKey())).get(0).getValue();
+      Config config = configsFeignBiz.configList(getCofig(ConfigEnum.ZH_ELECTRONICCALL.getKey())).get(0);
+      if (config.getStatus()<2){
+        config.setStatus(2);
+        configsFeignBiz.save(config);
+      }
+      electronicCall =  config.getValue();
     } catch (Exception e) {
       e.printStackTrace();
       return;

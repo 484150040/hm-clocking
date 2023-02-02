@@ -15,6 +15,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hm.digital.clocking.feign.ConfigsFeignBiz;
 import com.hm.digital.common.enums.ConfigEnum;
 import com.hm.digital.inface.biz.ConfigsService;
 import com.hm.digital.inface.biz.StatisticalService;
@@ -46,14 +47,34 @@ public class StatisticalJob extends BaseJob{
 
 
   @Autowired
-  public ConfigsService configsServices;
+  public ConfigsFeignBiz configsFeignBiz;
   @PostConstruct
   public void init() {
     try {
-      httpGetChart =  configsServices.getValue(getCofig(ConfigEnum.ZH_HTTPGETCHART.getKey())).get(0).getValue();
-      alarmOrder =  configsServices.getValue(getCofig(ConfigEnum.ZH_ALARMORDER.getKey())).get(0).getValue();
-      startTime =  configsServices.getValue(getCofig(ConfigEnum.ZH_STARTTIME.getKey())).get(0).getValue();
-      httpGetChartOrecle =  configsServices.getValue(getCofig(ConfigEnum.ZH_HTTPGETCHARTORECLE.getKey())).get(0).getValue();
+      Config config = configsFeignBiz.configList(getCofig(ConfigEnum.ZH_HTTPGETCHART.getKey())).get(0);
+      Config config1 = configsFeignBiz.configList(getCofig(ConfigEnum.ZH_ALARMORDER.getKey())).get(0);
+      Config config2 = configsFeignBiz.configList(getCofig(ConfigEnum.ZH_STARTTIME.getKey())).get(0);
+      Config config3 = configsFeignBiz.configList(getCofig(ConfigEnum.ZH_HTTPGETCHARTORECLE.getKey())).get(0);
+      if (config.getStatus()<2){
+        config.setStatus(2);
+        configsFeignBiz.save(config);
+      }
+      if (config1.getStatus()<2){
+        config1.setStatus(2);
+        configsFeignBiz.save(config1);
+      }
+      if (config2.getStatus()<2){
+        config2.setStatus(2);
+        configsFeignBiz.save(config2);
+      }
+      if (config3.getStatus()<2){
+        config3.setStatus(2);
+        configsFeignBiz.save(config3);
+      }
+      httpGetChart =  config.getValue();
+      alarmOrder =  config1.getValue();
+      startTime =  config2.getValue();
+      httpGetChartOrecle =  config3.getValue();
     } catch (Exception e) {
       e.printStackTrace();
       return;

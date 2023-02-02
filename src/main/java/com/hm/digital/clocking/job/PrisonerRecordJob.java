@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import com.alibaba.fastjson.JSONObject;
 import com.dahuatech.hutool.json.JSONArray;
 import com.dahuatech.hutool.json.JSONUtil;
+import com.hm.digital.clocking.feign.ConfigsFeignBiz;
 import com.hm.digital.common.enums.ConfigEnum;
 import com.hm.digital.inface.biz.ConfigsService;
 import com.hm.digital.inface.biz.PrisonerRecordService;
@@ -33,11 +34,16 @@ public class PrisonerRecordJob extends BaseJob {
   private static String httpGetList;
 
   @Autowired
-  public ConfigsService configsServices;
+  public ConfigsFeignBiz configsFeignBiz;
   @PostConstruct
   public void init() {
     try {
-      httpGetList =  configsServices.getValue(getCofig(ConfigEnum.ZH_HTTPGETLIST.getKey())).get(0).getValue();
+      Config config = configsFeignBiz.configList(getCofig(ConfigEnum.ZH_HTTPGETLIST.getKey())).get(0);
+      if (config.getStatus()<2){
+        config.setStatus(2);
+        configsFeignBiz.save(config);
+      }
+      httpGetList =  config.getValue();
     } catch (Exception e) {
       e.printStackTrace();
       return;
