@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -191,7 +192,8 @@ public class StatisticalJob extends BaseJob{
    * @param schema
    * @param prisonId
    */
-  private void getStatisticalJob(String httpGetCharts,List<Statistical> list, String prisonId, String... schema) {
+  @Async
+  public void getStatisticalJob(String httpGetCharts,List<Statistical> list, String prisonId, String... schema) {
     Map<String, String> parametersRed = new HashMap<>();
     if (schema[0].equals("1")||schema[0].equals("2")||schema[0].equals("3")){
       parametersRed.put("type", schema[0]);

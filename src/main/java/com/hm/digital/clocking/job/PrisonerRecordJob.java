@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dahuatech.hutool.json.JSONArray;
@@ -81,7 +82,8 @@ public class PrisonerRecordJob extends BaseJob {
    * @param schema
    * @param prisonId
    */
-  private void getPrisonerRecord(List<PrisonerRecord> list, String prisonId, String... schema) {
+  @Async
+  public void getPrisonerRecord(List<PrisonerRecord> list, String prisonId, String... schema) {
     Map<String, String> parametersRed = new HashMap<>();
     parametersRed.put("item", schema[0]);
     parametersRed.put("prisonId", prisonId);
