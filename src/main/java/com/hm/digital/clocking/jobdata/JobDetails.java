@@ -17,7 +17,7 @@ public class JobDetails {
   private String cronExpression;
 
   /**
-   * 工作名称
+   * 工作类名称
    */
   private String jobClassName;
 

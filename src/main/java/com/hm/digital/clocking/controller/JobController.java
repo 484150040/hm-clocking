@@ -8,13 +8,10 @@ import com.github.pagehelper.PageInfo;
 import com.hm.digital.clocking.jobdata.JobDetails;
 import com.hm.digital.clocking.manager.QuartzManager;
 
+import com.hm.digital.common.utils.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -23,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author pdai
  */
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/job")
 public class JobController {
 
@@ -44,10 +42,16 @@ public class JobController {
    * @throws Exception
    */
   @RequestMapping(value = "/addjob")
-  public void addjob(@RequestParam(value = "jobClassName") String jobClassName,
-      @RequestParam(value = "jobGroupName") String jobGroupName,
-      @RequestParam(value = "cronExpression") String cronExpression) throws Exception {
-    qtzManager.addOrUpdateJob(getClass(jobClassName), jobClassName, jobGroupName, cronExpression);
+  public ResultData addjob(@RequestParam(value = "jobClassName") String jobClassName,
+                           @RequestParam(value = "jobGroupName") String jobGroupName,
+                           @RequestParam(value = "cronExpression") String cronExpression) throws Exception {
+    try{
+      qtzManager.addOrUpdateJob(getClass(jobClassName), jobClassName, jobGroupName, cronExpression);
+    }catch (Exception e){
+      e.printStackTrace();
+      return ResultData.error(500,"系统停止请检查!");
+    }
+    return ResultData.success();
   }
 
   /**
@@ -58,9 +62,15 @@ public class JobController {
    * @throws Exception
    */
   @PostMapping(value = "/pausejob")
-  public void pausejob(@RequestParam(value = "jobClassName") String jobClassName,
-      @RequestParam(value = "jobGroupName") String jobGroupName) throws Exception {
-    qtzManager.pauseJob(jobClassName, jobGroupName);
+  public ResultData pausejob(@RequestParam(value = "jobClassName") String jobClassName,
+      @RequestParam(value = "jobGroupName") String jobGroupName) {
+    try{
+      qtzManager.pauseJob(jobClassName, jobGroupName);
+    }catch (Exception e){
+      e.printStackTrace();
+      return ResultData.error(500,"系统停止请检查!");
+    }
+    return ResultData.success();
   }
 
   /**
@@ -71,9 +81,15 @@ public class JobController {
    * @throws Exception
    */
   @PostMapping(value = "/resumejob")
-  public void resumejob(@RequestParam(value = "jobClassName") String jobClassName,
-      @RequestParam(value = "jobGroupName") String jobGroupName) throws Exception {
-    qtzManager.resumeJob(jobClassName, jobGroupName);
+  public ResultData resumejob(@RequestParam(value = "jobClassName") String jobClassName,
+      @RequestParam(value = "jobGroupName") String jobGroupName) {
+    try{
+      qtzManager.resumeJob(jobClassName, jobGroupName);
+    }catch (Exception e){
+      e.printStackTrace();
+      return ResultData.error(500,"系统停止请检查");
+    }
+    return ResultData.success();
   }
 
   /**
@@ -85,10 +101,16 @@ public class JobController {
    * @throws Exception
    */
   @PostMapping(value = "/reschedulejob")
-  public void rescheduleJob(@RequestParam(value = "jobClassName") String jobClassName,
+  public ResultData rescheduleJob(@RequestParam(value = "jobClassName") String jobClassName,
       @RequestParam(value = "jobGroupName") String jobGroupName,
-      @RequestParam(value = "cronExpression") String cronExpression) throws Exception {
-    qtzManager.addOrUpdateJob(getClass(jobClassName), jobClassName, jobGroupName, cronExpression);
+      @RequestParam(value = "cronExpression") String cronExpression){
+    try {
+      qtzManager.addOrUpdateJob(getClass(jobClassName), jobClassName, jobGroupName, cronExpression);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResultData.error(500,"系统停止请检查！");
+    }
+    return ResultData.success();
   }
 
   /**
@@ -99,9 +121,15 @@ public class JobController {
    * @throws Exception
    */
   @RequestMapping(value = "/deletejob")
-  public void deletejob(@RequestParam(value = "jobClassName") String jobClassName,
-      @RequestParam(value = "jobGroupName") String jobGroupName) throws Exception {
-    qtzManager.deleteJob(jobClassName, jobGroupName);
+  public ResultData deletejob(@RequestParam(value = "jobClassName") String jobClassName,
+      @RequestParam(value = "jobGroupName") String jobGroupName) {
+    try {
+      qtzManager.deleteJob(jobClassName, jobGroupName);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResultData.error(500,"系统停止请检查！");
+    }
+    return ResultData.success();
   }
 
   /**
